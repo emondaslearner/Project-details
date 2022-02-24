@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductDetails.css";
 import similar1 from "../Image/download.png";
 import similar2 from "../Image/images (1).jpeg";
@@ -193,13 +193,35 @@ const AddToCart = () => {
   };
   const [total, setTotal] = React.useState(0);
   const totalPrice = (e) => {
+    e.preventDefault()
     const qty = parseInt(e.target.value);
     const productPrize = document.querySelector(".productPrize").innerHTML;
     const prize = productPrize.substring(1);
     const prizeInt = parseInt(prize);
     setTotal(qty * prizeInt);
   };
+  React.useEffect(() => {
+    const getPrice = document.querySelector('.productPrize').innerHTML
+    const price = getPrice.substring(1)
+    total == 0 && setTotal(parseInt(price))
+  },[total])
 
+  let items = []
+  const getLocal = localStorage.getItem('item')
+  getLocal ? items = JSON.parse(getLocal):
+  console.log('hello')
+  const addToCart = (e) => {
+    e.preventDefault()
+    const title = document.querySelector('.Title').innerHTML
+    const qty = document.querySelector('form select').value
+    const src = document.querySelector('.mainProductImg img').src
+    const allItem = {title,qty,src,total}
+    items.push(allItem)
+    localStorage.setItem('item',JSON.stringify(items))
+    window.location.replace('/orders')
+  }
+
+  
   return (
     <>
       <div className="addToCart">
@@ -225,7 +247,7 @@ const AddToCart = () => {
           </div>
           <div className="productDetails">
             <div className="aboutProduct">
-              <h3>
+              <h3 className="Title" >
                 HP 24mh FHD Monitor - Computer Monitor with 23.8-Inch IPS
                 Display (1080p) - Built-In Speakers and VESA Mounting -
                 Height/Tilt Adjustment for Ergonomic Viewing - HDMI and
@@ -321,8 +343,7 @@ const AddToCart = () => {
                   <span className="deliveryTime">12 hrs 16 mins</span>
                 </p>
                 <h5 className="stock">Only 4 left in stock - order soon.</h5>
-                <button>Add to Cart</button>
-                <button className="buynow">Buy Now</button>
+                <button onClick={addToCart}>Add to Cart</button>
               </div>
             </div>
           </div>
@@ -403,8 +424,7 @@ const AddToCart = () => {
               HP standard 1-year limited warranty
             </p>
           </div>
-          <button>Add to Cart</button>
-          <button className="buynow">Buy Now</button>
+          <button onClick={addToCart}>Add to Cart</button>
         </div>
         <div className="zoomImg"></div>
       </div>
