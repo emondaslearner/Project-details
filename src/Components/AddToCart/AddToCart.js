@@ -57,7 +57,7 @@ class AddToCart extends Component {
             })}
             <div className="cartFooter">
               <h3>
-                Subtotal(1 item): <b>${this.total}</b>
+                Subtotal: <b>${this.total}</b>
               </h3>
             </div>
           </div>
