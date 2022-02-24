@@ -12,8 +12,8 @@ class App extends Component {
     return (
         <BrowserRouter>
             <Routes>
-            <Route path="/" element={<ProductDetails />}/>
-            <Route path="/orders" element={<AddToCart />}/>
+              <Route path="/" element={<ProductDetails />}/>
+              <Route path="/orders" element={<AddToCart />}/>
             </Routes>
       </BrowserRouter>
     );
